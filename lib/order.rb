@@ -1,37 +1,18 @@
 class Order
 
-attr_reader :current_order, :total_bill, :delivery_time, :order_time
+attr_reader :order
 
 def initialize
-  @current_order = []
-  @total_bill = 0
-  @delivery_time = 0
-  @order_time = 0
+  @order = {}
 end
 
-def place_order(*dish)
-  @current_order += dish
-  find_order_time
-  find_delivery_time
-  find_total_bill
+def define_order(dish,quantity=1)
+  @order[:dish] = dish
+  @order[:quantity] = quantity
 end
 
-private
-
-def find_order_time
-  @order_time = Time.new
-end
-
-def find_delivery_time
-  @delivery_time = @order_time + (30*60)
-  @delivery_time = "#{'%02d' % delivery_time.hour}:#{'%02d' % delivery_time.min}"
-end
-
-def find_total_bill
-  @current_order.each do |dish|
-    @total_bill += dish.price
-  end
-  @total_bill
+def order_cost
+  @order[:dish].price * order[:quantity]
 end
 
 end

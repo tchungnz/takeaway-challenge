@@ -2,8 +2,8 @@ require 'takeaway'
 
 describe Takeaway do
   subject(:takeaway) {described_class.new}
-  let(:dish1) {double :dish, name: "Pad Thai", price: 5}
-  let(:dish2) {double :dish, name: "Dumplings", price: 6}
+  let(:dish1) {double :dish, name: "Pad Thai", price: 10}
+  let(:dish2) {double :dish, name: "Dumplings", price: 5}
   let(:text) {double :text}
 
   describe '#show_menu' do
@@ -15,9 +15,9 @@ describe Takeaway do
   describe '#check_total' do
     context 'in the context that an order has been placed' do
       it 'will return the total cost of the order' do
-        order = takeaway.customer_order
-        order.place_order(dish1, dish2)
-        expect(takeaway.check_total).to eq "Your order will cost £11"
+        takeaway.customer_order.place_order(dish1)
+        takeaway.customer_order.place_order(dish2)
+        expect(takeaway.check_total).to eq "Your order will cost £15"
       end
     end
   end
